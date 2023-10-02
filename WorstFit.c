@@ -4,7 +4,9 @@
 void worstFit(int blockSize[], int m, int processSize[], int n)
 {
     int allocation[n];
-    memset(allocation, -1, sizeof(allocation));
+    
+    for (int i = 0; i < n; i++)
+        allocation[i] = -1;
 
     for (int i = 0; i < n; i++)
     {
@@ -23,15 +25,16 @@ void worstFit(int blockSize[], int m, int processSize[], int n)
         if (wstIdx != -1)
         {
             allocation[i] = wstIdx;
+            printf("Block size: No %d: %d - %d = %d \n", wstIdx + 1, blockSize[wstIdx], processSize[i], blockSize[wstIdx] - processSize[i]);
             blockSize[wstIdx] -= processSize[i];
         }
     }
-    printf("\nProcess No.\tProcess Size\tBlock no.\n");
+    printf("\nProcess No.\tProcess Size\tBlock no.\t Block Size\n");
     for (int i = 0; i < n; i++)
     {
         printf(" %d\t\t%d\t\t", i + 1, processSize[i]);
         if (allocation[i] != -1)
-            printf("%d", allocation[i] + 1);
+            printf("%d\t\t %d\n", allocation[i] + 1, blockSize[i]);
         else
             printf("Not Allocated");
         printf("\n");
